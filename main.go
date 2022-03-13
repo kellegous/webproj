@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/kellegous/webproj/pkg/npm"
+	"github.com/kellegous/webproj/pkg/webpack"
 )
 
 type Flags struct {
@@ -66,8 +67,16 @@ func main() {
 		log.Panic(err)
 	}
 
+	if err := webpack.CreateConfig(&webpack.Options{
+		Name: name,
+		Root: root,
+		Src:  flags.SrcDir,
+		Dst:  flags.DstDir,
+	}); err != nil {
+		log.Panic(err)
+	}
+
 	// Things left to do.
-	// 1. Write webpack config
 	// 2. Write tsc config
 	// 3. Write empty ts file in the source dir
 }
